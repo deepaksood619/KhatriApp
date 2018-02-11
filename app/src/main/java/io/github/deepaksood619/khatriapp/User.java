@@ -3,6 +3,7 @@ package io.github.deepaksood619.khatriapp;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Created by deepak on 02/02/18.
@@ -10,9 +11,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
-
+    @PrimaryKey
+    @NonNull
     private String name;
     private String one;
     private String two;
@@ -25,19 +25,12 @@ public class User {
     // Getters and setters are ignored for brevity,
     // but they're required for Room to work.
 
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
+    @NonNull
     public String getName() {
         return name;
     }
 
+    @NonNull
     public void setName(String name) {
         this.name = name;
     }

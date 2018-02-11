@@ -47,7 +47,7 @@ public class DisplayActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String result = "User not found";
+                                    String result = "Item not found";
                                     if (user != null) {
                                         result = user.toString();
                                     }

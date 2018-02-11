@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -13,17 +14,15 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user")
-    List<User> getAll();
-
-    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    List<User> loadAllByIds(int[] userIds);
 
     @Query("SELECT * FROM user WHERE name = :itemname")
     User find(String itemname);
 
     @Insert
     void insertAll(User... users);
+
+    @Update
+    void update(User... users);
 
     @Delete
     void delete(User user);
