@@ -3,12 +3,15 @@ package io.github.deepaksood619.khatriapp;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddActivity extends AppCompatActivity {
+
+    private static final String TAG = AddActivity.class.getSimpleName();
 
     private EditText etAddItem;
     private EditText etOne;
@@ -38,36 +41,58 @@ public class AddActivity extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = etAddItem.getText().toString().trim();
+                final String content = etAddItem.getText().toString().trim();
                 if (content.equals("")) {
                     etAddItem.setError("Please enter item name");
                 } else {
-                    Toast.makeText(AddActivity.this, "Added Item", Toast.LENGTH_SHORT).show();
-                    final User user = new User();
-                    user.setName(content);
-                    user.setOne(etOne.getText().toString());
-                    user.setTwo(etTwo.getText().toString());
-                    user.setThree(etThree.getText().toString());
-                    user.setFour(etFour.getText().toString());
-                    user.setFive(etFive.getText().toString());
-                    user.setSix(etSix.getText().toString());
-                    user.setSeven(etSeven.getText().toString());
-
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
-                            Singleton.getInstance().getDb().userDao().insertAll(user);
+                            final User user = Singleton.getInstance().getDb().userDao().find(content);
+                            Log.d(TAG, "user - " + user);
+
+                            if (user != null) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(AddActivity.this, "Item already exists", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                final User newUser = new User();
+                                newUser.setName(content);
+                                newUser.setOne(etOne.getText().toString());
+                                newUser.setTwo(etTwo.getText().toString());
+                                newUser.setThree(etThree.getText().toString());
+                                newUser.setFour(etFour.getText().toString());
+                                newUser.setFive(etFive.getText().toString());
+                                newUser.setSix(etSix.getText().toString());
+                                newUser.setSeven(etSeven.getText().toString());
+
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Singleton.getInstance().getDb().userDao().insertAll(newUser);
+                                    }
+                                });
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(AddActivity.this, "Added Item", Toast.LENGTH_SHORT).show();
+                                        etAddItem.setText("");
+                                        etOne.setText("");
+                                        etTwo.setText("");
+                                        etThree.setText("");
+                                        etFour.setText("");
+                                        etFive.setText("");
+                                        etSix.setText("");
+                                        etSeven.setText("");
+                                    }
+                                });
+                            }
                         }
                     });
-
-                    etAddItem.setText("");
-                    etOne.setText("");
-                    etTwo.setText("");
-                    etThree.setText("");
-                    etFour.setText("");
-                    etFive.setText("");
-                    etSix.setText("");
-                    etSeven.setText("");
                 }
             }
         });

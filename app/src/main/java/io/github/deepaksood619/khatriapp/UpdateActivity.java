@@ -106,6 +106,14 @@ public class UpdateActivity extends AppCompatActivity {
                                         Toast.makeText(UpdateActivity.this, "Item not found", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(UpdateActivity.this, "Item Updated", Toast.LENGTH_SHORT).show();
+                                        etAddItem.setText("");
+                                        etOne.setText("");
+                                        etTwo.setText("");
+                                        etThree.setText("");
+                                        etFour.setText("");
+                                        etFive.setText("");
+                                        etSix.setText("");
+                                        etSeven.setText("");
                                     }
                                 }
                             });
