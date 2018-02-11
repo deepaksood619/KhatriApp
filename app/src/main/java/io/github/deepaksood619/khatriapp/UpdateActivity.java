@@ -55,13 +55,47 @@ public class UpdateActivity extends AppCompatActivity {
                             if (user != null) {
                                 final User newUser = new User();
                                 newUser.setName(content);
-                                newUser.setOne(etOne.getText().toString());
-                                newUser.setTwo(etTwo.getText().toString());
-                                newUser.setThree(etThree.getText().toString());
-                                newUser.setFour(etFour.getText().toString());
-                                newUser.setFive(etFive.getText().toString());
-                                newUser.setSix(etSix.getText().toString());
-                                newUser.setSeven(etSeven.getText().toString());
+                                if (!etOne.getText().toString().equals("")) {
+                                    newUser.setOne(etOne.getText().toString());
+                                } else {
+                                    newUser.setOne(user.getOne());
+                                }
+
+                                if (!etTwo.getText().toString().equals("")) {
+                                    newUser.setTwo(etTwo.getText().toString());
+                                } else {
+                                    newUser.setTwo(user.getOne());
+                                }
+
+                                if (!etThree.getText().toString().equals("")) {
+                                    newUser.setThree(etThree.getText().toString());
+                                } else {
+                                    newUser.setThree(user.getOne());
+                                }
+
+                                if (!etFour.getText().toString().equals("")) {
+                                    newUser.setFour(etFour.getText().toString());
+                                } else {
+                                    newUser.setFour(user.getOne());
+                                }
+
+                                if (!etFive.getText().toString().equals("")) {
+                                    newUser.setFive(etFive.getText().toString());
+                                } else {
+                                    newUser.setFive(user.getOne());
+                                }
+
+                                if (!etSix.getText().toString().equals("")) {
+                                    newUser.setSix(etSix.getText().toString());
+                                } else {
+                                    newUser.setSix(user.getOne());
+                                }
+
+                                if (!etSeven.getText().toString().equals("")) {
+                                    newUser.setSeven(etSeven.getText().toString());
+                                } else {
+                                    newUser.setSeven(user.getOne());
+                                }
 
                                 Singleton.getInstance().getDb().userDao().update(newUser);
                             }

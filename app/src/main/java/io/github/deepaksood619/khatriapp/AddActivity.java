@@ -59,6 +59,15 @@ public class AddActivity extends AppCompatActivity {
                             Singleton.getInstance().getDb().userDao().insertAll(user);
                         }
                     });
+
+                    etAddItem.setText("");
+                    etOne.setText("");
+                    etTwo.setText("");
+                    etThree.setText("");
+                    etFour.setText("");
+                    etFive.setText("");
+                    etSix.setText("");
+                    etSeven.setText("");
                 }
             }
         });

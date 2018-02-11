@@ -93,14 +93,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "name=" + name + '\n' +
-                "11.5=" + one + '\n' +
-                "10.5=" + two + '\n' +
-                "9.5=" + three + '\n' +
-                "8.5=" + four + '\n' +
-                "7.5=" + five + '\n' +
-                "6.5=" + six + '\n' +
-                "5.5=" + seven;
+        return "Item - " + name + '\n' +
+                "11.5 - " + one + '\n' +
+                "10.5 - " + two + '\n' +
+                "9.5 - " + three + '\n' +
+                "8.5 - " + four + '\n' +
+                "7.5 - " + five + '\n' +
+                "6.5 - " + six + '\n' +
+                "5.5 - " + seven;
     }
 }
 
