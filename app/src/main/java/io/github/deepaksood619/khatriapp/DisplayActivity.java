@@ -3,6 +3,8 @@ package io.github.deepaksood619.khatriapp;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,48 +18,25 @@ public class DisplayActivity extends AppCompatActivity {
 
     private static final String TAG = DisplayActivity.class.getSimpleName();
 
-    private EditText etEnterItem;
-    private Button btnDisplay;
-
-    private TextView tvItem;
+    private RecyclerView rvDisplayItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
-        etEnterItem = findViewById(R.id.et_enter_item);
-        btnDisplay = findViewById(R.id.btn_display);
-        tvItem = findViewById(R.id.tv_item);
+        rvDisplayItems = findViewById(R.id.rv_display_items);
 
-        btnDisplay.setOnClickListener(new View.OnClickListener() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rvDisplayItems.setLayoutManager(layoutManager);
+
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onClick(View v) {
-                final String content = etEnterItem.getText().toString().trim().toLowerCase();
+            public void run() {
+                List<User> users = Singleton.getInstance().getDb().userDao().getAll();
 
-                if (content.equals("")) {
-                    etEnterItem.setError("Please enter item");
-                } else {
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            final User user = Singleton.getInstance().getDb().userDao().find(content);
-                            Log.d(TAG, "user - " + user);
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String result = "Item not found";
-                                    if (user != null) {
-                                        result = user.toString();
-                                    }
-                                    tvItem.setText(result);
-                                }
-                            });
-
-                        }
-                    });
-                }
+                RecyclerView.Adapter adapter = new DisplayAdapter(users);
+                rvDisplayItems.setAdapter(adapter);
             }
         });
     }

@@ -15,6 +15,9 @@ import java.util.List;
 @Dao
 public interface UserDao {
 
+    @Query("SELECT * FROM user")
+    List<User> getAll();
+
     @Query("SELECT * FROM user WHERE name = :itemname")
     User find(String itemname);
 
